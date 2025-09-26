@@ -6,7 +6,7 @@
 #include "Truck.h"
 using namespace std;
 
-// The ui menu to navigate the program
+// Function to create ui menu to navigate the program
 void PrintMenu() {
     cout << "\nCar Dealership Inventory System\n";
     cout << "1. Add Car\n";
@@ -19,14 +19,17 @@ void PrintMenu() {
 }
 
 int main() {
+    // Vector to store cars and trucks
     vector<shared_ptr<Vehicle>> inventory;
     int choice;
 
     do {
         PrintMenu();
+        // Taking user input for choice on menu
         cin >> choice;
-        cin.ignore(); // Clear newline
+        cin.ignore();
 
+        // Creating a new car
         if (choice == 1) {
             string make, model, color;
             int mpg;
@@ -44,6 +47,7 @@ int main() {
             inventory.push_back(make_shared<Car>(make, model, color, mpg, msrp, spare, wiper));
             cout << "Car added!\n";
         }
+        // Creating a new truck
         else if (choice == 2) {
             string make, model, color;
             int mpg;
@@ -61,6 +65,7 @@ int main() {
             inventory.push_back(make_shared<Truck>(make, model, color, mpg, msrp, storage, tailgate));
             cout << "Truck added!\n";
         }
+        // Print all cars and trucks in inventory
         else if (choice == 3) {
             cout << "\nCurrent Inventory:\n";
             for (size_t i = 0; i < inventory.size(); ++i) {
@@ -69,6 +74,7 @@ int main() {
                 cout << "-----------------------\n";
             }
         }
+        // Search inventory by attribute
         else if (choice == 4) {
             string search;
             cout << "Enter make, model, or color to search: ";
@@ -81,11 +87,13 @@ int main() {
                 }
             }
         }
+        // Print description of specific vehicle
         else if (choice == 5) {
             int idx;
             cout << "Enter index of vehicle: ";
             cin >> idx;
 
+            // Error message for invalid inputs from user
             if (idx >= 0 && idx < (int)inventory.size()) {
                 inventory[idx]->PrintInfo();
             } else {
@@ -94,6 +102,7 @@ int main() {
         }
 
     } while (choice != 0);
+    // Loop program until user chooses to exit
 
     return 0;
 }

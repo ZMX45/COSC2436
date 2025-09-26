@@ -1,3 +1,4 @@
+// Including the .h file to define the functions
 #include "Vehicle.h"
 
 // Default constructor
@@ -8,7 +9,7 @@ Vehicle::Vehicle()
 Vehicle::Vehicle(string mk, string mdl, string clr, int mpgVal, double price)
     : make(mk), model(mdl), color(clr), mpg(mpgVal), msrp(price) {}
 
-// Setters
+// Setters for vehicle
 void Vehicle::SetMake(string mk) {
      make = mk; }
 
@@ -25,7 +26,7 @@ void Vehicle::SetMsrp(double price) {
      msrp = price; }
 
 
-// Getters
+// Getters for vehicle
 string Vehicle::GetMake() const {
      return make; }
 
@@ -42,7 +43,7 @@ double Vehicle::GetMsrp() const {
      return msrp; }
 
 
-// Print
+// Print the details of vehicle object
 void Vehicle::PrintInfo() const {
     cout << "Make: " << make << "\nModel: " << model
          << "\nColor: " << color << "\nMPG: " << mpg

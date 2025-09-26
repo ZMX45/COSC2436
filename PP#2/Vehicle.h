@@ -5,7 +5,10 @@
 #include <iostream>
 using namespace std;
 
+// Creating the base class vehicle which will be derived from
 class Vehicle {
+
+// The attributes of vehicle
 private:
     string make;
     string model;
@@ -14,25 +17,25 @@ private:
     double msrp;
 
 public:
-    // Constructors
+    // Constructors for vehicle
     Vehicle();
     Vehicle(string make, string model, string color, int mpg, double msrp);
 
-    // Setters
+    // Setters for vehicle class
     void SetMake(string make);
     void SetModel(string model);
     void SetColor(string color);
     void SetMpg(int mpg);
     void SetMsrp(double msrp);
 
-    // Getters
+    // Getters for vehicle class
     string GetMake() const;
     string GetModel() const;
     string GetColor() const;
     int GetMpg() const;
     double GetMsrp() const;
 
-    // Virtual function for printing (to be overridden by derived classes)
+    // Print fuction made virtual so it can be overriden
     virtual void PrintInfo() const;
     virtual ~Vehicle() {}
 };

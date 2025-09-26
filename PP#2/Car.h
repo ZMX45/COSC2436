@@ -3,26 +3,30 @@
 
 #include "Vehicle.h"
 
+// Creating Car class derived from Vehicle class
 class Car : public Vehicle {
-private:
-    bool spareInTrunk;
-    bool rearWindshieldWiper;
+    // Attributes exclusive to car objects
+    private:
+        bool spareInTrunk;
+        bool rearWindshieldWiper;
 
+// Car constructor
 public:
     Car();
     Car(string make, string model, string color, int mpg, double msrp,
         bool spareInTrunk, bool rearWindshieldWiper);
 
-    // Setters
+    // Setters for Car class
     void SetSpareInTrunk(bool value);
 
     void SetRearWindshieldWiper(bool value);
 
-    // Getters
+    // Getters for Car class
     bool HasSpareInTrunk() const;
     
     bool HasRearWindshieldWiper() const;
 
+//  Function to print out description of Car object overriding the original print function
     void PrintInfo() const override;
 };
 

@@ -2,6 +2,7 @@
 #include <iostream>
 using namespace std;
 
+// Defining functions of Car
 Car::Car()
     : Vehicle(), spareInTrunk(false), rearWindshieldWiper(false) {}
 
@@ -22,6 +23,7 @@ bool Car::HasSpareInTrunk() const {
 bool Car::HasRearWindshieldWiper() const {
      return rearWindshieldWiper; }
 
+// Overriding original print function to include new attributes
 void Car::PrintInfo() const {
     Vehicle::PrintInfo();
     cout << "Spare in trunk: " << (spareInTrunk ? "Yes" : "No") << endl;
