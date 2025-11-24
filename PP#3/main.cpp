@@ -19,16 +19,25 @@ int main() {
         cout << "5. Save Backlog to File" << endl;
         cout << "6. Load Backlog from File" << endl;
         cout << "7. Exit" << endl;
-        cout << "Enter your choice: ";
-        cin >> choice;
 
+        // Validate menu choice input
+        while (true) {
+            cout << "Enter your choice: ";
+            if (cin >> choice) {
+                break; // valid input, exit loop
+            } else {
+                cout << "Invalid input. Please enter a number between 1 and 7." << endl;
+                cin.clear();               // clear error flags
+                cin.ignore(10000, '\n');   // discard invalid input
+            }
+        }
 
         switch (choice) {
             // Option 1: adding a game to backlog
             case 1: {
                 string title, genre, platform;
                 cout << "Enter game title: ";
-                cin.ignore();
+                cin.ignore();  // clear leftover newline
                 getline(cin, title);
                 cout << "Enter game genre: ";
                 getline(cin, genre);
@@ -42,16 +51,28 @@ int main() {
             // Option 2: remove a game from backlog
             case 2: {
                 int index;
-                cout << "Enter index of game to remove: ";
-                cin >> index;
+                // Validate index input
+                while (true) {
+                    cout << "Enter index of game to remove: ";
+                    if (cin >> index) break;
+                    cout << "Invalid input. Please enter a valid integer index." << endl;
+                    cin.clear();
+                    cin.ignore(10000, '\n');
+                }
                 manager.removeGame(index);
                 break;
             }
             // Option 3: mark a game as completed
             case 3: {
                 int index;
-                cout << "Enter index of game to mark completed: ";
-                cin >> index;
+                // Validate index input
+                while (true) {
+                    cout << "Enter index of game to mark completed: ";
+                    if (cin >> index) break;
+                    cout << "Invalid input. Please enter a valid integer index." << endl;
+                    cin.clear();
+                    cin.ignore(10000, '\n');
+                }
                 manager.markGameCompleted(index);
                 break;
             }
@@ -85,3 +106,4 @@ int main() {
 
     return 0;
 }
+

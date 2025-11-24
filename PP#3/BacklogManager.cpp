@@ -7,13 +7,13 @@ Game::Game(string t, string g, string p)
 
 // Method to mark game as completed
 void Game::markCompleted() {
-    cout << "[Stub] Game marked as completed (to be implemented)." << endl;
+    completed = true;
+    cout << "Game \"" << title << "\" marked as completed!" << endl;
 }
 
 // Method to display entire game backlog
 void Game::display() const {
-    cout << "[Stub] Displaying game: "
-         << title << " | " << genre << " | " << platform
+    cout << title << " | " << genre << " | " << platform
          << " | " << (completed ? "Completed" : "Not Completed") << endl;
 }
 
@@ -39,38 +39,83 @@ bool Game::isCompleted() const {
 
 // Adds a game to backlog
 void BacklogManager::addGame(const Game& newGame) {
-    cout << "[Stub] Adding game to backlog." << endl;
-    
+    backlog.push_back(newGame);
+    cout << "Added \"" << newGame.getTitle() << "\" to backlog." << endl;
 }
+
 
 // Removes a game from the backlog
 void BacklogManager::removeGame(int index) {
-    cout << "[Stub] Removing game at index " << index << endl;
+    if (index < 0 || index >= backlog.size()) {
+        cout << "Invalid index. No game removed." << endl;
+        return;
+    }
+    cout << "Removed \"" << backlog[index].getTitle() << "\" from backlog." << endl;
+    backlog.erase(backlog.begin() + index);
 }
 
 // Marks a game in backlog as completed
 void BacklogManager::markGameCompleted(int index) {
-    cout << "[Stub] Marking game at index " << index
-         << " as completed." << endl;
+    if (index < 0 || index >= backlog.size()) {
+        cout << "Invalid index. Cannot mark game as completed." << endl;
+        return;
+    }
+    backlog[index].markCompleted();
 }
 
 // Displays game backlog as a list
 void BacklogManager::displayGames() const {
-    cout << "[Stub] Displaying all games in backlog..." << endl;
+    cout << "\n=== Game Backlog ===" << endl;
     if (backlog.empty()) {
         cout << "Backlog is currently empty." << endl;
     } else {
         for (size_t i = 0; i < backlog.size(); ++i) {
             cout << i << ": ";
-            backlog.at(i).display();
+            backlog[i].display();
         }
     }
 }
 
+// Save backlog to file
 void BacklogManager::saveToFile(const string& filename) {
-    cout << "[Stub] Saving backlog " << filename << endl;
+    ofstream outFile(filename);
+    if (!outFile) {
+        cout << "Error opening file for writing." << endl;
+        return;
+    }
+
+    for (const auto& game : backlog) {
+        outFile << game.getTitle() << endl
+                << game.getGenre() << endl
+                << game.getPlatform() << endl
+                << game.isCompleted() << endl;
+    }
+
+    outFile.close();
+    cout << "Backlog saved to \"" << filename << "\"." << endl;
 }
 
+// Load backlog from file
 void BacklogManager::loadFromFile(const string& filename) {
-    cout << "[Stub] Loading backlog from file " << filename << endl;
+    ifstream inFile(filename);
+    if (!inFile) {
+        cout << "Error opening file for reading." << endl;
+        return;
+    }
+
+    backlog.clear();
+    string title, genre, platform;
+    bool completed;
+    while (getline(inFile, title)) {
+        getline(inFile, genre);
+        getline(inFile, platform);
+        inFile >> completed;
+        inFile.ignore();  // Skip newline after bool
+        Game game(title, genre, platform);
+        if (completed) game.markCompleted();
+        backlog.push_back(game);
+    }
+
+    inFile.close();
+    cout << "Backlog loaded from \"" << filename << "\"." << endl;
 }
